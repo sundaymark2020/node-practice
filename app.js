@@ -1,8 +1,28 @@
+const dns = require('dns');
+dns.setServers(['8.8.8.8', '8.8.4.4']);
 const express = require('express');
+
+const mongoose = require('mongoose');
+require('dotenv').config();
+
 const app = express();
 const morgan = require('morgan');
 // Set EJS as the view engine
 app.set('view engine', 'ejs');
+mongoose.connect(process.env.MONGODB_URI)
+    .then(() => {
+        console.log('Connected to MongoDB');
+
+        app.listen(3000, function() {
+            console.log('Server is running on port 3000');
+        });
+    })
+    .catch((error) => {
+        console.log('MongoDB connection error:', error);
+    });
+
+
+
 app.use(morgan('dev'));
 app.use(express.static('public')); // Serve static files from the 'public' directory
 app.listen(3000,function(){
