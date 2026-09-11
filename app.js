@@ -9,6 +9,7 @@ const app = express();
 const morgan = require('morgan');
 // Set EJS as the view engine
 app.set('view engine', 'ejs');
+
 mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
         console.log('Connected to MongoDB');
